@@ -38,12 +38,15 @@ jobs:
       - name: Build EXE with PyInstaller
         run: pyinstaller packaging/windows.spec --noconfirm
 
+      - name: Rename artifact
+        run: mv dist/TgWsProxy.exe dist/TgWsProxy_windows.exe
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: TgWsProxy
           path: |
-            dist/TgWsProxy.exe
+            dist/TgWsProxy_windows.exe
 
   build-win7:
     runs-on: windows-latest
@@ -67,13 +70,13 @@ jobs:
         run: pyinstaller packaging/windows.spec --noconfirm
 
       - name: Rename artifact
-        run: mv dist/TgWsProxy.exe dist/TgWsProxy-win7.exe
+        run: mv dist/TgWsProxy.exe dist/TgWsProxy_windows_7.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: TgWsProxy-win7
-          path: dist/TgWsProxy-win7.exe
+          path: dist/TgWsProxy_windows_7.exe
 
   build-macos:
     runs-on: macos-latest
@@ -209,7 +212,7 @@ jobs:
             -srcfolder "$DMG_TEMP" \
             -ov \
             -format UDZO \
-            "dist/TgWsProxy.dmg"
+            "dist/TgWsProxy_macos_universal.dmg"
 
           rm -rf "$DMG_TEMP"
 
@@ -217,7 +220,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TgWsProxy-macOS
-          path: dist/TgWsProxy.dmg
+          path: dist/TgWsProxy_macos_universal.dmg
 
   build-linux:
     runs-on: ubuntu-latest
@@ -247,6 +250,9 @@ jobs:
       - name: Build binary with PyInstaller
         run: .venv/bin/pyinstaller packaging/linux.spec --noconfirm
 
+      - name: Rename binary artifact
+        run: mv dist/TgWsProxy dist/TgWsProxy_linux_amd64
+
       - name: Create .deb package
         run: |
           set -euo pipefail
@@ -261,7 +267,7 @@ jobs:
             "$PKG_ROOT/usr/share/applications" \
             "$PKG_ROOT/usr/share/icons/hicolor/256x256/apps"
 
-          install -m 755 dist/TgWsProxy "$PKG_ROOT/usr/bin/tg-ws-proxy"
+          install -m 755 dist/TgWsProxy_linux_amd64 "$PKG_ROOT/usr/bin/tg-ws-proxy"
 
           .venv/bin/python - <<PY
           from PIL import Image
@@ -300,15 +306,15 @@ jobs:
 
           dpkg-deb --build --root-owner-group \
             "$PKG_ROOT" \
-            "dist/tg-ws-proxy_${VERSION}_amd64.deb"
+            "dist/TgWsProxy_linux_amd64.deb"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: TgWsProxy-linux
           path: |
-            dist/TgWsProxy
-            dist/tg-ws-proxy_*_amd64.deb
+            dist/TgWsProxy_linux_amd64
+            dist/TgWsProxy_linux_amd64.deb
 
   release:
     needs: [build, build-win7, build-macos, build-linux]
@@ -347,11 +353,11 @@ jobs:
           body: |
             ## TG WS Proxy ${{ github.event.inputs.version }}
           files: |
-            dist/TgWsProxy.exe
-            dist/TgWsProxy-win7.exe
-            dist/TgWsProxy.dmg
-            dist/TgWsProxy
-            dist/tg-ws-proxy_*_amd64.deb
+            dist/TgWsProxy_windows.exe
+            dist/TgWsProxy_windows_7.exe
+            dist/TgWsProxy_macos_universal.dmg
+            dist/TgWsProxy_linux_amd64
+            dist/TgWsProxy_linux_amd64.deb
           draft: false
           prerelease: false
         env:

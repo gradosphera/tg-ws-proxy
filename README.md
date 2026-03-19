@@ -32,7 +32,7 @@ Telegram Desktop → SOCKS5 (127.0.0.1:1080) → TG WS Proxy → WSS → Telegra
 
 ### Windows
 
-Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy.exe`**. Он собирается автоматически через [Github Actions](https://github.com/Flowseal/tg-ws-proxy/actions) из открытого исходного кода.
+Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy_windows.exe`**. Он собирается автоматически через [Github Actions](https://github.com/Flowseal/tg-ws-proxy/actions) из открытого исходного кода.
 
 При первом запуске откроется окно с инструкцией по подключению Telegram Desktop. Приложение сворачивается в системный трей.
 
@@ -46,7 +46,7 @@ Telegram Desktop → SOCKS5 (127.0.0.1:1080) → TG WS Proxy → WSS → Telegra
 
 ### macOS
 
-Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy.dmg`** — универсальная сборка для Apple Silicon и Intel.
+Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy_macos_universal.dmg`** — универсальная сборка для Apple Silicon и Intel.
 
 1. Открыть образ
 2. Перенести **TG WS Proxy.app** в папку **Applications**
@@ -54,11 +54,13 @@ Telegram Desktop → SOCKS5 (127.0.0.1:1080) → TG WS Proxy → WSS → Telegra
 
 ### Linux
 
-Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy`** (бинарный файл для x86_64).
+Для Debian/Ubuntu скачайте со [страницы релизов](https://github.com/Flowseal/tg-ws-proxy/releases) пакет **`TgWsProxy_linux_amd64.deb`**.
+
+Для остальных дистрибутивов можно использовать **`TgWsProxy_linux_amd64`** (бинарный файл для x86_64).
 
 ```bash
-chmod +x TgWsProxy
-./TgWsProxy
+chmod +x TgWsProxy_linux_amd64
+./TgWsProxy_linux_amd64
 ```
 
 При первом запуске откроется окно с инструкцией. Приложение работает в системном трее (требуется AppIndicator).
@@ -184,8 +186,8 @@ Tray-приложение хранит данные в:
 
 Минимально поддерживаемые версии ОС для текущих бинарных сборок:
 
-- Windows 10+ для `TgWsProxy.exe`
-- Windows 7 для `TgWsProxy-win7.exe`
+- Windows 10+ для `TgWsProxy_windows.exe`
+- Windows 7 для `TgWsProxy_windows_7.exe`
 - Intel macOS 10.15+
 - Apple Silicon macOS 11.0+
 - Linux x86_64 (требуется AppIndicator для системного трея)
