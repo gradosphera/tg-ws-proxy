@@ -32,8 +32,11 @@ jobs:
       - name: Install dependencies
         run: pip install .
 
-      - name: Install pyinstaller
-        run: pip install "pyinstaller==6.16.0"
+      - name: Build PyInstaller bootloader from source
+        run: |
+          pip install "pyinstaller==6.16.0" --no-binary pyinstaller
+        env:
+          PYINSTALLER_COMPILE_BOOTLOADER: 1
 
       - name: Build EXE with PyInstaller
         run: pyinstaller packaging/windows.spec --noconfirm
