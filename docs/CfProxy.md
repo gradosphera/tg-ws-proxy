@@ -1,0 +1,27 @@
+# Cloudflare Proxy
+
+Для недоступных датацентров можно использовать альтернативный бесплатный метод подключения - проксирование через Cloudflare. **Для работы нужен только домен**. В приложении есть домен по умолчанию, но его можно (и лучше) заменить на свой.
+
+## Зачем мне настраивать свой домен?
+Cloudflare имеет лимиты на одновременное количество подключений WS. Домен по умолчанию может перестать работать в любой момент. 
+
+## Настройка своего домена
+1. Добавьте свой домен в Cloudflare (либо купив у них напрямую, либо поменяв NS сервера: https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/)
+
+2. В `SSL/TLS` -> `Overview` выставьте режим **Flexible**
+
+3. В `DNS` -> `Records` добавьте следующие `A` записи через `+ Add Record`:
+- Name=`kws1`   IPv4=`149.154.175.50`
+- Name=`kws2`   IPv4=`149.154.167.51`
+- Name=`kws3`   IPv4=`149.154.175.100`
+- Name=`kws4`   IPv4=`149.154.167.91`
+- Name=`kws5`   IPv4=`149.154.171.5`
+- Name=`kws203` IPv4=`149.154.175.50`
+
+4. **Добавьте домен в [zapret](https://github.com/Flowseal/zapret-discord-youtube/) или другой софт для обхода блокировок, так как подсеть Cloudflare забанена (по крайней мере, если вы из России)**
+
+5. В настройках TgWsProxy поменяйте домен на свой
+
+## Mentions
+Idea - https://github.com/Nekogram/WSProxy  
+thanks to [@UjuiUjuMandan](https://github.com/UjuiUjuMandan) for information
