@@ -174,7 +174,7 @@ CLI команды объявляются в `pyproject.toml` в секции `[
 
 ```toml
 [project.scripts]
-tg-ws-proxy = "proxy.tg_ws_proxy:main"
+tg-ws-proxy = "proxy:main"
 tg-ws-proxy-tray-win = "windows:main"
 tg-ws-proxy-tray-macos = "macos:main"
 tg-ws-proxy-tray-linux = "linux:main"
