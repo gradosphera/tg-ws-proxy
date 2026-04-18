@@ -214,7 +214,7 @@ async def proxy_to_masking_domain(reader, writer, initial_data: bytes,
             asyncio.open_connection(domain, 443), timeout=10)
     except Exception as exc:
         log.debug("[%s] masking: cannot connect to %s:443: %s",
-                  label, domain, exc)
+                  label, domain, repr(exc))
         return
 
     log.debug("[%s] masking -> %s:443", label, domain)

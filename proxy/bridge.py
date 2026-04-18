@@ -175,7 +175,7 @@ async def _cfproxy_fallback(reader, writer, relay_init, label,
             break
         except Exception as exc:
             log.warning("[%s] DC%d%s CF proxy failed: %s",
-                        label, dc, media_tag, exc)
+                        label, dc, media_tag, repr(exc))
 
     if ws is None:
         return False
@@ -198,7 +198,7 @@ async def _tcp_fallback(reader, writer, dst, port, relay_init, label,
             asyncio.open_connection(dst, port), timeout=10)
     except Exception as exc:
         log.warning("[%s] TCP fallback to %s:%d failed: %s",
-                    label, dst, port, exc)
+                    label, dst, port, repr(exc))
         return False
 
     stats.connections_tcp_fallback += 1

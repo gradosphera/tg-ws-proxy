@@ -448,7 +448,7 @@ async def _handle_client(reader, writer, secret: bytes):
                     stats.ws_errors += 1
                     all_redirects = False
                     log.warning("[%s] DC%d%s WS connect failed: %s",
-                                label, dc, media_tag, exc)
+                                label, dc, media_tag, repr(exc))
 
         # WS failed -> fallback
         if ws is None:
@@ -506,7 +506,7 @@ async def _handle_client(reader, writer, secret: bytes):
         if getattr(exc, 'winerror', None) == 1236:
             log.debug("[%s] connection aborted by local system", label)
         else:
-            log.error("[%s] unexpected OS error: %s", label, exc)
+            log.error("[%s] unexpected OS error: %s", label, repr(exc))
     except Exception as exc:
         log.error("[%s] unexpected: %s", label, exc, exc_info=True)
     finally:
